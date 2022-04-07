@@ -375,11 +375,10 @@ main {
    background: var(--text-color-transparent);
    padding: .75rem;
    border-radius: 50%;
+   max-width: calc(100vw - 2rem);
    width: 100%;
    max-height: calc(100vw - 2rem);
    height: 100%;
-   animation: rotate 10s linear infinite;
-   animation-play-state: paused;
 }
 
 .expanded .figure::after {
@@ -400,6 +399,8 @@ main {
    height: 100%;
    object-fit: cover;
    border-radius: inherit;
+   animation: rotate 10s linear infinite;
+   animation-play-state: paused;
 }
 
 .expanded .details {
