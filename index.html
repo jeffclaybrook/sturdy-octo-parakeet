@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Refactored</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <audio preload="metadata"></audio>
+   <main>
+      <div class="playlist"></div>
+      <div class="player">
+         <div class="header">
+            <button class="theme-btn">
+               <ion-icon name="moon-sharp"></ion-icon>
+            </button>
+            <div class="wrapper">
+               <h5>Playing from Album</h5>
+               <h4></h4>
+            </div>
+            <button class="collapse-btn">
+               <ion-icon name="chevron-down-sharp"></ion-icon>
+            </button>
+         </div>
+         <div class="figure">
+            <img alt="Image">
+         </div>
+         <div class="details">
+            <h1></h1>
+            <h2></h2>
+         </div>
+         <div class="progress">
+            <input type="range" class="progress-bar">
+            <div class="timecodes">
+               <p class="timer">00:00</p>
+               <p class="duration">00:00</p>
+            </div>
+         </div>
+         <div class="controls">
+            <button class="shuffle-btn btn-sm">
+               <ion-icon name="shuffle-outline"></ion-icon>
+            </button>
+            <button class="prev-btn btn-md">
+               <ion-icon name="play-skip-back-sharp"></ion-icon>
+            </button>
+            <button class="play-btn btn-lg">
+               <ion-icon name="play-circle"></ion-icon>
+            </button>
+            <button class="next-btn btn-md">
+               <ion-icon name="play-skip-forward-sharp"></ion-icon>
+            </button>
+            <button class="repeat-btn btn-sm">
+               <ion-icon name="repeat-outline"></ion-icon>
+            </button>
+         </div>
+      </div>
+   </main>
+   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+   <script src="app.js"></script>
+   <script src="script.js"></script>
+</body>
+</html>
