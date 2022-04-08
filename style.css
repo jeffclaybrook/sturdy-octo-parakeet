@@ -403,6 +403,10 @@ main {
    animation-play-state: paused;
 }
 
+.expanded.playing .figure img {
+   animation-play-state: running;
+}
+
 .expanded .details {
    width: 100%;
 }
