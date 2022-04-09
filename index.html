@@ -4,7 +4,14 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Refactored</title>
+   <meta name="mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-title" content="Audio App">
+   <meta name="apple-mobile-web-app-status-bar-style" content="#181818">
+   <meta name="theme-color" content="#181818">
+   <meta name="description" content="Description">
+   <title>Audio app</title>
+   <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+   <link rel="shortcut icon" href="images/favicon.ico">
    <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,52 +20,34 @@
       <div class="playlist"></div>
       <div class="player">
          <div class="header">
-            <button class="theme-btn">
-               <ion-icon name="moon-sharp"></ion-icon>
-            </button>
-            <div class="wrapper">
-               <h5>Playing from Album</h5>
-               <h4></h4>
-            </div>
-            <button class="collapse-btn">
-               <ion-icon name="chevron-down-sharp"></ion-icon>
-            </button>
+            <h5>Playing from Album</h5>
+            <h4 class="song-album"></h4>
          </div>
          <div class="figure">
-            <img alt="Image">
+            <img src="images/placeholder.png" alt="Image">
          </div>
          <div class="details">
-            <h1></h1>
-            <h2></h2>
+            <h1 class="song-name"></h1>
+            <h2 class="song-artist"></h2>
          </div>
-         <div class="progress">
-            <input type="range" class="progress-bar">
+         <div class="seek-container">
+            <input type="range" class="seek-bar">
             <div class="timecodes">
                <p class="timer">00:00</p>
                <p class="duration">00:00</p>
             </div>
          </div>
          <div class="controls">
-            <button class="shuffle-btn btn-sm">
-               <ion-icon name="shuffle-outline"></ion-icon>
-            </button>
-            <button class="prev-btn btn-md">
-               <ion-icon name="play-skip-back-sharp"></ion-icon>
-            </button>
-            <button class="play-btn btn-lg">
-               <ion-icon name="play-circle"></ion-icon>
-            </button>
-            <button class="next-btn btn-md">
-               <ion-icon name="play-skip-forward-sharp"></ion-icon>
-            </button>
-            <button class="repeat-btn btn-sm">
-               <ion-icon name="repeat-outline"></ion-icon>
-            </button>
+            <button class="prev-btn"><span class="prev-icon"></span></button>
+            <button class="play-btn"><span class="play-icon"></span></button>
+            <button class="next-btn"><span class="next-icon"></span></button>
+         </div>
+         <div class="sub-controls">
+            <button class="share-btn"><span class="share-icon"></span></button>
+            <button class="collapse-btn"><span class="collapse-icon"></span></button>
          </div>
       </div>
    </main>
-   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
    <script src="app.js"></script>
    <script src="script.js"></script>
 </body>

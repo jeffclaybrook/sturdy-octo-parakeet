@@ -1,24 +1,30 @@
+if ('serviceWorker' in navigator) {
+   navigator.serviceWorker.register('sw.js').then(registration => {
+      console.log('SW Registered!');
+      console.log(registration);
+   }).catch(error => {
+      console.log('SW Register failed!')
+      console.log(error);
+   })
+}
+
 const audio = document.querySelector('audio');
 const main = document.querySelector('main');
 const playlist = document.querySelector('.playlist');
 const player = document.querySelector('.player');
 const details = document.querySelector('.details');
-const songName = document.querySelector('.details h1');
-const songArtist = document.querySelector('.details h2');
-const songAlbum = document.querySelector('.header h4');
+const songName = document.querySelector('.song-name');
+const songArtist = document.querySelector('.song-artist');
+const songAlbum = document.querySelector('.song-album');
 const songImage = document.querySelector('.figure img');
 const songTimer = document.querySelector('.timer');
 const songDuration = document.querySelector('.duration');
-const progressBar = document.querySelector('.progress-bar');
+const seekBar = document.querySelector('.seek-bar');
 const playBtn = document.querySelector('.play-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
-const shuffleBtn = document.querySelector('.shuffle-btn');
-const repeatBtn = document.querySelector('.repeat-btn');
-const themeBtn = document.querySelector('.theme-btn');
 const expandBtn = document.querySelector('.details');
 const collapseBtn = document.querySelector('.collapse-btn');
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
 let currentSong = Math.floor((Math.random() * songs.length) + 1);
 
@@ -30,7 +36,7 @@ window.addEventListener('load', () => {
 
 function setSong(i) {
    let song = songs[i];
-   progressBar.value = 0;
+   seekBar.value = 0;
    audio.src = song.file;
    songImage.src = song.cover;
    songName.innerHTML = song.name;
@@ -39,7 +45,7 @@ function setSong(i) {
    songTimer.innerHTML = '00:00';
    songDuration.innerHTML = song.duration;
    audio.addEventListener('loadeddata', () => {
-      progressBar.max = audio.duration;
+      seekBar.max = audio.duration;
    });
 }
 
@@ -52,23 +58,25 @@ function formatTime(time) {
 }
 
 setInterval(() => {
-   progressBar.value = Math.floor(audio.currentTime);
+   seekBar.value = Math.floor(audio.currentTime);
    songTimer.innerHTML = formatTime(audio.currentTime);
 }, 1000);
 
 function seekSong() {
-   audio.currentTime = progressBar.value;
+   audio.currentTime = seekBar.value;
 }
 
 function playSong() {
    player.classList.add('playing');
-   playBtn.querySelector('ion-icon').setAttribute('name', 'pause-circle');
+   playBtn.querySelector('span').classList.add('pause-icon');
+   playBtn.querySelector('span').classList.remove('play-icon');
    audio.play();
 }
 
 function pauseSong() {
    player.classList.remove('playing');
-   playBtn.querySelector('ion-icon').setAttribute('name', 'play-circle');
+   playBtn.querySelector('span').classList.add('play-icon');
+   playBtn.querySelector('span').classList.remove('pause-icon');
    audio.pause();
 }
 
@@ -104,7 +112,7 @@ function loadPlaylist() {
                   <h4>${songs[i].artist}</h4>
                </div>
             </div>
-            <button class="more-btn"><ion-icon name="ellipsis-vertical"></ion-icon></button>
+            <button class="more-btn"><span class="more-icon"></span></button>
          </li>
       `;
       playlist.appendChild(ulTag);
@@ -143,26 +151,10 @@ function collapsePlayer() {
    main.classList.remove('overlay');
 }
 
-function setTheme() {
-   let theme = localStorage.getItem('theme');
-   if (theme == 'dark') {
-      document.body.classList.toggle('dark-theme');
-   } else if (theme == 'light') {
-      document.body.classList.toggle('light-theme');
-   } else if (prefersDarkScheme.matches) {
-      document.body.classList.toggle('light-theme');
-      theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
-   } else {
-      document.body.classList.toggle('dark-theme');
-      theme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-   }
-}
-
 collapseBtn.addEventListener('click', collapsePlayer);
 expandBtn.addEventListener('click', expandPlayer);
 playBtn.addEventListener('click', toggleSong);
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
-themeBtn.addEventListener('click', setTheme);
-progressBar.addEventListener('change', seekSong);
+seekBar.addEventListener('change', seekSong);
 audio.addEventListener('ended', nextSong);
