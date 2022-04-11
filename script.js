@@ -1,13 +1,3 @@
-if ('serviceWorker' in navigator) {
-   navigator.serviceWorker.register('serviceworker.js')
-   .then(registration => {
-      console.log(registration);
-   })
-   .catch(error => {
-      console.log(error);
-   })
-}
-
 const audio = document.querySelector('audio');
 const main = document.querySelector('main');
 const playlist = document.querySelector('.playlist');
