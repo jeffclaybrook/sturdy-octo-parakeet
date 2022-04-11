@@ -145,7 +145,7 @@ function collapsePlayer() {
 
 function shareApp() {
    let shareData = {
-      title: 'MP3 App',
+      title: 'Audio app',
       text: 'by Jeff Claybrook',
       url: 'https://jeffclaybrook.github.io/sturdy-octo-parakeet/'
    };
