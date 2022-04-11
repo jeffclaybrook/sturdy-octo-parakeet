@@ -9,7 +9,8 @@
    box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
    scroll-behavior: smooth;
    text-rendering: optimizeLegibility;
    -webkit-font-smoothing: antialiased;
@@ -38,6 +39,22 @@ a {
    text-decoration: none;
    cursor: pointer;
 }  
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+   white-space: normal;
+   word-break: break-word;
+   -webkit-line-clamp: 1;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+}
 
 input {
    border: none;
@@ -136,13 +153,6 @@ button:focus {
    color: #fff;
    letter-spacing: .03em;
    font-weight: 400;
-   white-space: normal;
-   word-break: break-word;
-   -webkit-line-clamp: 1;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-box-orient: vertical;
-   overflow: hidden;
 }
 
 .playlist li h4 {
@@ -150,13 +160,6 @@ button:focus {
    font-size: .875rem;
    letter-spacing: .03em;
    font-weight: 400;
-   white-space: normal;
-   word-break: break-word;
-   -webkit-line-clamp: 1;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-box-orient: vertical;
-   overflow: hidden;
 }
 
 .playlist li p {
@@ -202,8 +205,7 @@ button:focus {
    display: flex;
    flex-direction: row;
    align-items: center;
-   padding: 0 .5rem .025rem .5rem;
-   border-radius: .5rem .5rem 0 0;
+   padding: 0 .5rem;
    gap: .625rem;
 }
 
@@ -247,31 +249,17 @@ button:focus {
 .details h1 {
    font-size: 1rem;
    font-weight: 500;
-   text-overflow: ellipsis;
-   overflow: hidden;
-   white-space: normal;
-   -webkit-line-clamp: 1;
-   display: -webkit-box;
-   -webkit-box-orient: vertical;
-   word-break: break-all;
 }
 
 .details h2 {
    font-size: .875rem;
    font-weight: 400;
    opacity: .7;
-   text-overflow: ellipsis;
-   overflow: hidden;
-   white-space: normal;
-   -webkit-line-clamp: 1;
-   display: -webkit-box;
-   -webkit-box-orient: vertical;
-   word-break: break-word;
 }
 
 .seek-container {
    position: absolute;
-   bottom: 0;
+   top: 0;
    left: 0;
    width: 100%;
 }
@@ -284,10 +272,10 @@ button:focus {
    cursor: pointer;
    width: 100%;
    border-radius: 0;
-   height: .15rem;
+   height: .125rem;
    overflow: hidden;
    position: absolute;
-   bottom: 0;
+   top: 0;
 }
 
 .seek-bar::-webkit-slider-thumb {
@@ -296,7 +284,7 @@ button:focus {
    appearance: none;
    box-shadow: -400px 0 0 400px #fff;
    width: 0;
-   height: .15rem;
+   height: .125rem;
 }
 
 .timecodes {
@@ -340,8 +328,7 @@ button:focus {
    justify-content: space-between;
    z-index: 1000;
    pointer-events: auto;
-   border-radius: 0;
-   transition: .3s ease;
+   transition: .25s ease;
    background: linear-gradient(to bottom, rgb(69, 71, 85) 0%, #1c1c1f 100%);
 }
 
@@ -427,13 +414,14 @@ button:focus {
 }
 
 .expanded .seek-bar {
-
    border-radius: .5rem;
+   height: .15rem;
    position: relative;
 }
 
 .expanded .seek-bar::-webkit-slider-thumb {
    border-radius: .5rem;
+   height: .15rem;
 }
 
 .expanded .timecodes {
@@ -487,6 +475,10 @@ button:focus {
    align-items: center;
    justify-content: space-between;
    width: 100%;
+}
+
+.expanded .sub-controls p {
+   display: none;
 }
 
 .expanded .sub-controls button {

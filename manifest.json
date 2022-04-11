@@ -1,7 +1,7 @@
 {
    "name": "Audio App name",
    "short_name": "Audio App short name",
-   "start_url": ".",
+   "start_url": "https://jeffclaybrook.github.io/sturdy-octo-parakeet/",
    "background_color": "#181818",
    "theme_color": "#181818",
    "display": "standalone",

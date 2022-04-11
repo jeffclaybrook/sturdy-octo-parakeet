@@ -1,9 +1,9 @@
 if ('serviceWorker' in navigator) {
-   navigator.serviceWorker.register('sw.js').then(registration => {
-      console.log('SW Registered!');
+   navigator.serviceWorker.register('sw.js')
+   .then(registration => {
       console.log(registration);
-   }).catch(error => {
-      console.log('SW Register failed!')
+   })
+   .catch(error => {
       console.log(error);
    })
 }
@@ -23,6 +23,8 @@ const seekBar = document.querySelector('.seek-bar');
 const playBtn = document.querySelector('.play-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
+const shareBtn = document.querySelector('.share-btn');
+const shareMenu = document.querySelector('.share-menu');
 const expandBtn = document.querySelector('.details');
 const collapseBtn = document.querySelector('.collapse-btn');
 
@@ -151,10 +153,28 @@ function collapsePlayer() {
    main.classList.remove('overlay');
 }
 
+function shareApp() {
+   let shareData = {
+      title: 'MP3 App',
+      text: 'by Jeff Claybrook',
+      url: 'https://jeffclaybrook.github.io/sturdy-octo-parakeet/'
+   };
+   navigator.share(shareData)
+   .then(() =>
+      shareMenu.textContent = '',
+      shareMenu.style.display = 'none'
+   )
+   .catch((e) =>
+      shareMenu.textContenet = '' + e,
+      shareMenu.style.display = 'none'
+   )
+}
+
 collapseBtn.addEventListener('click', collapsePlayer);
 expandBtn.addEventListener('click', expandPlayer);
 playBtn.addEventListener('click', toggleSong);
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
+shareBtn.addEventListener('click', shareApp);
 seekBar.addEventListener('change', seekSong);
 audio.addEventListener('ended', nextSong);
