@@ -45,10 +45,9 @@ h2,
 h3,
 h4,
 h5,
-h6,
-p {
+h6 {
    white-space: normal;
-   word-break: break-word;
+   word-break: break-all;
    -webkit-line-clamp: 1;
    text-overflow: ellipsis;
    display: -webkit-box;
@@ -101,11 +100,14 @@ button:focus {
 }
 
 .overlay {
+   content: '';
    position: fixed;
    top: 0;
    left: 0;
-   bottom: 0;
    right: 0;
+   bottom: 0;
+   z-index: -1;
+   background: url('images/overlay.svg') no-repeat center center/cover;
    background: rgba(0,0,0,.5);
 }
 
@@ -125,20 +127,23 @@ button:focus {
 }
 
 .playlist li:last-of-type {
-   margin-bottom: 4rem;
+   margin-bottom: 4.375rem;
 }
 
 .playlist li img {
-   width: 3rem;
-   height: 3rem;
-   border-radius: .25rem;
+   max-width: 2.875rem;
+   max-height: 2.875rem;
+   width: 100%;
+   height: 100%;
+   border-radius: .125rem;
+   object-fit: cover;
 }
 
 .playlist li .wrapper {
    display: flex;
    flex-direction: column;
-   justify-content: space-evenly;
-   height: 3rem;
+   justify-content: space-around;
+   height: 2.875rem;
    margin-right: auto;
 }
 
@@ -149,29 +154,32 @@ button:focus {
 }
 
 .playlist li h3 {
-   font-size: 1rem;
+   font-size: 1.0125rem;
    color: #fff;
    letter-spacing: .03em;
    font-weight: 400;
 }
 
 .playlist li h4 {
-   color: #b3b3b3;
+   color: #fff;
+   opacity: .65;
    font-size: .875rem;
-   letter-spacing: .03em;
+   letter-spacing: .04em;
    font-weight: 400;
 }
 
 .playlist li p {
    color: #181818;
-   background: rgba(255,255,255,.6);
-   border-radius: 2px;
-   font-size: 10px;
-   padding: 2px;
+   background: rgba(255,255,255,.7);
+   border-radius: .125rem;
+   font-size: .625rem;
+   padding: .125rem;
    text-transform: uppercase;
+   letter-spacing: .01em;
    display: flex;
    font-weight: 600;
    align-items: center;
+   text-align: center;
 }
 
 .playlist li button {
@@ -197,7 +205,7 @@ button:focus {
    background: rgba(72, 75, 92, .975);
    left: 0;
    bottom: 0;
-   height: 3.5rem;
+   height: 3.75rem;
    width: 100%;
    transition: .25s ease;
    overflow: hidden;
@@ -205,7 +213,7 @@ button:focus {
    display: flex;
    flex-direction: row;
    align-items: center;
-   padding: 0 .5rem;
+   padding: 0 .625rem;
    gap: .625rem;
 }
 
@@ -216,16 +224,16 @@ button:focus {
 
 .figure {
    display: flex;
-   max-width: 2.5rem;
-   max-height: 2.5rem;
+   max-width: 2.75rem;
+   max-height: 2.75rem;
    width: 100%;
    border-radius: 50%;
    position: relative;
 }
 
 .figure img {
-   width: 2.5rem;
-   height: 2.5rem;
+   width: 2.75rem;
+   height: 2.75rem;
    border-radius: inherit;
    object-fit: cover;
    overflow: hidden;
@@ -243,11 +251,11 @@ button:focus {
    flex-direction: column;
    width: 100%;
    position: relative;
-   gap: .025rem;
+   justify-content: space-evenly;
 }
 
 .details h1 {
-   font-size: 1rem;
+   font-size: 1.025rem;
    font-weight: 500;
 }
 
@@ -255,6 +263,7 @@ button:focus {
    font-size: .875rem;
    font-weight: 400;
    opacity: .7;
+   letter-spacing: .02em;
 }
 
 .seek-container {
@@ -272,7 +281,7 @@ button:focus {
    cursor: pointer;
    width: 100%;
    border-radius: 0;
-   height: .125rem;
+   height: .1rem;
    overflow: hidden;
    position: absolute;
    top: 0;
@@ -284,7 +293,7 @@ button:focus {
    appearance: none;
    box-shadow: -400px 0 0 400px #fff;
    width: 0;
-   height: .125rem;
+   height: .1rem;
 }
 
 .timecodes {
@@ -327,18 +336,7 @@ button:focus {
    padding: 1.25rem 1.375rem;
    justify-content: space-between;
    pointer-events: auto;
-   background: linear-gradient(to bottom, rgb(69, 71, 85) 0%, #1c1c1f 100%);
-}
-
-.expanded::before {
-   content: '';
-   position: fixed;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   z-index: -1;
-   background: url('images/overlay.svg') no-repeat center center/cover;
+   background: linear-gradient(to bottom, rgba(69, 71, 85, .9) 0%, rgba(28, 28, 31, .9) 100%);
 }
 
 .expanded .header {
@@ -366,10 +364,10 @@ button:focus {
 .expanded .figure {
    position: relative;
    background: rgba(255,255,255,.15);
-   padding: .75rem;
+   padding: .625rem;
    border-radius: 50%;
-   max-width: 98%;
-   max-height: 98%;
+   max-width: 92%;
+   max-height: 92%;
    width: 100%;
    margin-bottom: auto;
 }
@@ -394,16 +392,16 @@ button:focus {
 }
 
 .expanded .details {
-   gap: .125rem;
+   gap: .125rem;  
    margin-bottom: auto;
 }
 
 .expanded .details h1 {
-   font-size: 1.25rem;
+   font-size: 1.325rem;
 }
 
 .expanded .details h2 {
-   font-size: 1rem;
+   font-size: 1.075rem;
    opacity: .7;
 }
 
@@ -520,27 +518,40 @@ button:focus {
 }
 
 @media (min-width: 600px) {
-   .expanded .figure {
-      max-width: 275px;
+   .expanded {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 3rem;
+      align-content: space-between;
+      justify-content: center;
    }
 
-   .expanded .figure img {
-      max-width: 275px;
+   .expanded .header {
+      grid-column: 1 / 4;
+      text-align: center;
+   }
+
+   .expanded .figure {
+      grid-column: 2 / 3;
+      max-width: 100%;
+      max-height: 100%;
    }
 
    .expanded .details {
-      max-width: 400px;
+      grid-column: 1 / 4;
+      height: fit-content;
    }
 
    .expanded .seek-container {
-      max-width: 400px;
+      grid-column: 1 / 4;
    }
 
-   .expanded .seek-bar {
-      height: .25rem;
+   .expanded .controls {
+      grid-column: 1 / 4;
+      justify-content: center;
    }
 
    .expanded .sub-controls {
-      max-width: 400px;
+      grid-column: 1 / 4;
    }
 }
