@@ -3,13 +3,13 @@ const main = document.querySelector('main');
 const playlist = document.querySelector('.playlist');
 const player = document.querySelector('.player');
 const details = document.querySelector('.details');
-const songName = document.querySelector('.song-name');
-const songArtist = document.querySelector('.song-artist');
-const songAlbum = document.querySelector('.song-album');
-const songImage = document.querySelector('.figure img');
-const songTimer = document.querySelector('.timer');
-const songDuration = document.querySelector('.duration');
-const seekBar = document.querySelector('.seek-bar');
+const track = document.querySelector('.song-name');
+const artist = document.querySelector('.song-artist');
+const album = document.querySelector('.song-album');
+const image = document.querySelector('.figure img');
+const timer = document.querySelector('.song-timer');
+const duration = document.querySelector('.song-duration');
+const seek = document.querySelector('.seek-bar');
 const playBtn = document.querySelector('.play-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
@@ -26,72 +26,7 @@ window.addEventListener('load', () => {
    playingSong();
 })
 
-function setSong(i) {
-   let song = songs[i];
-   seekBar.value = 0;
-   audio.src = song.file;
-   songImage.src = song.cover;
-   songName.innerHTML = song.name;
-   songAlbum.innerHTML = currentSong >= 12 ? 'Coloring Book' : 'good kid, m.A.A.d city';
-   songArtist.innerHTML = currentSong >= 12 ? 'Chance the Rapper' : 'Kendrick Lamar';
-   songTimer.innerHTML = '00:00';
-   songDuration.innerHTML = song.duration;
-   audio.addEventListener('loadeddata', () => {
-      seekBar.max = audio.duration;
-   });
-}
-
-function formatTime(time) {
-   let min = Math.floor(time / 60);
-   let sec = Math.floor(time % 60);
-   let minutes = min < 10 ? `0${min}` : `${min}`;
-   let seconds = sec < 10 ? `0${sec}` : `${sec}`;
-   return `${minutes}:${seconds}`;
-}
-
-setInterval(() => {
-   seekBar.value = Math.floor(audio.currentTime);
-   songTimer.innerHTML = formatTime(audio.currentTime);
-}, 1000);
-
-function seekSong() {
-   audio.currentTime = seekBar.value;
-}
-
-function playSong() {
-   player.classList.add('playing');
-   playBtn.querySelector('span').classList.add('pause-icon');
-   playBtn.querySelector('span').classList.remove('play-icon');
-   audio.play();
-}
-
-function pauseSong() {
-   player.classList.remove('playing');
-   playBtn.querySelector('span').classList.add('play-icon');
-   playBtn.querySelector('span').classList.remove('pause-icon');
-   audio.pause();
-}
-
-function prevSong() {
-   currentSong <= 0 ? currentSong = songs.length - 1 : currentSong--;
-   setSong(currentSong);
-   playingSong();
-   playSong();
-}
-
-function nextSong() {
-   currentSong >= songs.length - 1 ? currentSong = 0 : currentSong++;
-   setSong(currentSong);
-   playingSong();
-   playSong();
-}
-
-function toggleSong() {
-   const isPlaying = player.classList.contains('playing');
-   isPlaying ? pauseSong() : playSong();
-}
-
-function loadPlaylist() {
+const loadPlaylist = () => {
    const ulTag = document.createElement('ul');
    for (let i = 0; i < songs.length; i++) {
       let liTag = `
@@ -100,7 +35,7 @@ function loadPlaylist() {
             <div class="wrapper">
                <h3>${songs[i].name}</h3>
                <div class="flex">
-                  <p>EXPLICIT</p>
+                  <p>Explicit</p>
                   <h4>${songs[i].artist}</h4>
                </div>
             </div>
@@ -112,38 +47,100 @@ function loadPlaylist() {
    }
 }
 
-function playingSong() {
+const setSong = (i) => {
+   let song = songs[i];
+   audio.src = song.file;
+   image.src = song.cover;
+   player.style.background = `linear-gradient(to bottom, rgba(69, 71, 85, .9) 0%, rgba(28, 28, 31, .9) 100%), url(${song.cover}) no-repeat center center/cover`;
+   track.innerHTML = song.name;
+   artist.innerHTML = song.artist;
+   album.innerHTML = currentSong >= 12 ? 'Coloring Book' : 'good kid, m.A.A.d city';
+   seek.value = 0;
+   timer.innerHTML = '00:00';
+   duration.innerHTML = song.duration;
+   audio.addEventListener('loadeddata', () => {
+      seek.max = audio.duration;
+   });
+}
+
+const formatTime = (time) => {
+   let min = Math.floor(time / 60);
+   let sec = Math.floor(time % 60);
+   let minutes = min < 10 ? `0${min}` : `${min}`;
+   let seconds = sec < 10 ? `0${sec}` : `${sec}`;
+   return `${minutes}:${seconds}`;
+}
+
+setInterval(() => {
+   seek.value = Math.floor(audio.currentTime);
+   timer.innerHTML = formatTime(audio.currentTime);
+}, 1000);
+
+const seekSong = () => {
+   audio.currentTime = seek.value;
+}
+
+const playSong = () => {
+   player.classList.add('playing');
+   playBtn.querySelector('span').classList.add('pause-icon');
+   playBtn.querySelector('span').classList.remove('play-icon');
+   audio.play();
+}
+
+const pauseSong = () => {
+   player.classList.remove('playing');
+   playBtn.querySelector('span').classList.add('play-icon');
+   playBtn.querySelector('span').classList.remove('pause-icon');
+   audio.pause();
+}
+
+const prevSong = () => {
+   currentSong <= 0 ? currentSong = songs.length - 1 : currentSong--;
+   setSong(currentSong);
+   playingSong();
+   playSong();
+}
+
+const nextSong = () => {
+   currentSong >= songs.length - 1 ? currentSong = 0 : currentSong++;
+   setSong(currentSong);
+   playingSong();
+   playSong();
+}
+
+const toggleSong = () => {
+   const isPlaying = player.classList.contains('playing');
+   isPlaying ? pauseSong() : playSong();
+}
+
+const playingSong = () => {
    const ulTag = playlist.querySelector('ul');
    const allLiTag = ulTag.querySelectorAll('li');
-   for (let j = 0; j < allLiTag.length; j++) {
-      if (allLiTag[j].getAttribute('li-index') == currentSong) {
-         allLiTag[j].classList.add('now-playing');
-      } else {
-         allLiTag[j].classList.remove('now-playing');
-      }
-      allLiTag[j].setAttribute('onclick', 'clicked(this)');
+   for (let i = 0; i < allLiTag.length; i++) {
+      allLiTag[i].getAttribute('li-index') == currentSong ? allLiTag[i].classList.add('now-playing') : allLiTag[i].classList.remove('now-playing');
+      allLiTag[i].setAttribute('onclick', 'clickedSong(this)');
    }
 }
 
-function clicked(element) {
+const clickedSong = (element) => {
    let getLiIndex = element.getAttribute('li-index');
    currentSong = getLiIndex;
    setSong(currentSong);
-   playSong();
    playingSong();
+   playSong();   
 }
 
-function expandPlayer() {
+const expandPlayer = () => {
    player.classList.add('expanded');
    main.classList.add('overlay');
 }
 
-function collapsePlayer() {
+const collapsePlayer = () => {
    player.classList.remove('expanded');
    main.classList.remove('overlay');
 }
 
-function shareApp() {
+const shareApp = () => {
    let shareData = {
       title: 'Audio app',
       text: 'by Jeff Claybrook',
@@ -155,7 +152,7 @@ function shareApp() {
       shareMenu.style.display = 'none'
    )
    .catch((e) =>
-      shareMenu.textContenet = '' + e,
+      shareMenu.textContent = '' + e,
       shareMenu.style.display = 'none'
    )
 }
@@ -166,5 +163,5 @@ playBtn.addEventListener('click', toggleSong);
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 shareBtn.addEventListener('click', shareApp);
-seekBar.addEventListener('change', seekSong);
+seek.addEventListener('change', seekSong);
 audio.addEventListener('ended', nextSong);
