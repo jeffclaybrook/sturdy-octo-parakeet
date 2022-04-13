@@ -38,7 +38,7 @@ ol {
 a {
    text-decoration: none;
    cursor: pointer;
-}  
+}
 
 h1,
 h2,
@@ -47,12 +47,13 @@ h4,
 h5,
 h6 {
    white-space: normal;
-   word-break: break-all;
+   word-break: break-word;
    -webkit-line-clamp: 1;
    text-overflow: ellipsis;
    display: -webkit-box;
    -webkit-box-orient: vertical;
    overflow: hidden;
+   line-height: 1.15em;
 }
 
 input {
@@ -61,14 +62,14 @@ input {
 }
 
 button {
-	border: none;
-	outline: none;
-	background: none;
-	cursor: pointer;
+   border: none;
+   outline: none;
+   background: none;
+   cursor: pointer;
 }
 
 button:focus {
-	outline: none;
+   outline: none;
 }
 
 .play-icon {
@@ -106,9 +107,9 @@ button:focus {
    left: 0;
    right: 0;
    bottom: 0;
-   z-index: -1;
+   z-index: 1;
    background: url('images/overlay.svg') no-repeat center center/cover;
-   background: rgba(0,0,0,.5);
+   background: rgba(0, 0, 0, .7);
 }
 
 .playlist ul {
@@ -131,8 +132,8 @@ button:focus {
 }
 
 .playlist li img {
-   max-width: 2.875rem;
-   max-height: 2.875rem;
+   max-width: 2.75rem;
+   max-height: 2.75rem;
    width: 100%;
    height: 100%;
    border-radius: .125rem;
@@ -142,44 +143,23 @@ button:focus {
 .playlist li .wrapper {
    display: flex;
    flex-direction: column;
-   justify-content: space-around;
-   height: 2.875rem;
+   justify-content: center;
+   gap: .25rem;
    margin-right: auto;
-}
-
-.playlist li .flex {
-   display: flex;
-   align-items: center;
-   gap: .5rem;
 }
 
 .playlist li h3 {
    font-size: 1.0125rem;
-   color: #fff;
-   letter-spacing: .03em;
-   font-weight: 400;
+   color: rgba(255, 255, 255, .9875);
+   letter-spacing: .04em;
+   font-weight: 500;
 }
 
 .playlist li h4 {
-   color: #fff;
-   opacity: .65;
-   font-size: .875rem;
+   color: rgba(255, 255, 255, .7);
+   font-size: .85rem;
    letter-spacing: .04em;
-   font-weight: 400;
-}
-
-.playlist li p {
-   color: #181818;
-   background: rgba(255,255,255,.7);
-   border-radius: .125rem;
-   font-size: .625rem;
-   padding: .125rem;
-   text-transform: uppercase;
-   letter-spacing: .01em;
-   display: flex;
-   font-weight: 600;
-   align-items: center;
-   text-align: center;
+   font-weight: 500;
 }
 
 .playlist li button {
@@ -237,7 +217,7 @@ button:focus {
    border-radius: inherit;
    object-fit: cover;
    overflow: hidden;
-   animation: rotate 7s linear infinite;
+   animation: rotate 9s linear infinite;
    animation-play-state: paused;
    position: relative;
 }
@@ -251,19 +231,20 @@ button:focus {
    flex-direction: column;
    width: 100%;
    position: relative;
-   justify-content: space-evenly;
+   justify-content: center;
+   gap: .125rem;
 }
 
 .details h1 {
-   font-size: 1.025rem;
+   font-size: 1rem;
    font-weight: 500;
 }
 
 .details h2 {
-   font-size: .875rem;
+   font-size: .85rem;
    font-weight: 400;
-   opacity: .7;
-   letter-spacing: .02em;
+   opacity: .6;
+   letter-spacing: .03em;
 }
 
 .seek-container {
@@ -277,7 +258,7 @@ button:focus {
    -webkit-appearance: none;
    -moz-appearance: none;
    appearance: none;
-   background: rgba(255,255,255,.1);
+   background: rgba(255, 255, 255, .1);
    cursor: pointer;
    width: 100%;
    border-radius: 0;
@@ -291,7 +272,7 @@ button:focus {
    -webkit-appearance: none;
    -moz-appearance: none;
    appearance: none;
-   box-shadow: -400px 0 0 400px #fff;
+   box-shadow: -400px 0 0 400px rgba(255, 255, 255, .85);
    width: 0;
    height: .1rem;
 }
@@ -336,15 +317,14 @@ button:focus {
    padding: 1.25rem 1.375rem;
    justify-content: space-between;
    pointer-events: auto;
-   background: linear-gradient(to bottom, rgba(69, 71, 85, .9) 0%, rgba(28, 28, 31, .9) 100%);
+   background: linear-gradient(to bottom, rgba(69, 71, 85, .925) 0%, rgba(28, 28, 31, .925) 100%);
 }
 
 .expanded .header {
    display: flex;
    flex-direction: column;
    text-align: center;
-   gap: .125rem;
-   margin-bottom: auto;
+   gap: .25rem;
 }
 
 .expanded .header h4 {
@@ -363,19 +343,19 @@ button:focus {
 
 .expanded .figure {
    position: relative;
-   background: rgba(255,255,255,.15);
+   background: rgba(255, 255, 255, .1);
    padding: .625rem;
    border-radius: 50%;
    max-width: 92%;
    max-height: 92%;
    width: 100%;
-   margin-bottom: auto;
+   margin: auto
 }
 
 .expanded .figure::after {
    content: '';
    background: rgba(69, 71, 85, 1);
-   border: .375rem solid rgba(255,255,255,.1);
+   border: .375rem solid rgba(255, 255, 255, .1);
    border-radius: 50%;
    position: absolute;
    left: 50%;
@@ -392,16 +372,16 @@ button:focus {
 }
 
 .expanded .details {
-   gap: .125rem;  
-   margin-bottom: auto;
+   gap: .25rem;
 }
 
 .expanded .details h1 {
-   font-size: 1.325rem;
+   font-size: 1.375rem;
+   letter-spacing: .03em;
 }
 
 .expanded .details h2 {
-   font-size: 1.075rem;
+   font-size: 1rem;
    opacity: .7;
 }
 
@@ -433,6 +413,7 @@ button:focus {
 .expanded .controls {
    display: flex;
    align-items: center;
+   justify-content: center;
    gap: 1.5rem;
 }
 
@@ -440,29 +421,29 @@ button:focus {
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 2.5rem;
-   height: 2.5rem;
-   background: rgba(255,255,255,0);
+   width: 2.75rem;
+   height: 2.75rem;
+   background: rgba(255, 255, 255, .15);
    border-radius: 50%;
 }
 
 .expanded .controls button:active {
-   background: rgba(255,255,255,.1);
+   background: rgba(255, 255, 255, .35);
 }
 
 .expanded .controls button span {
-   width: 2.25rem;
-   height: 2.25rem;
+   width: 1.75rem;
+   height: 1.75rem;
 }
 
 .expanded .controls .play-btn {
-   width: 3.75rem;
-   height: 3.75rem;
+   width: 4rem;
+   height: 4rem;
 }
 
 .expanded .controls .play-btn span {
-   width: 3.75rem;
-   height: 3.75rem;
+   width: 2.25rem;
+   height: 2.25rem;
    display: flex;
 }
 
@@ -481,24 +462,24 @@ button:focus {
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 1.75rem;
-   height: 1.75rem;
-   background: rgba(255,255,255,0);
+   width: 1.5rem;
+   height: 1.5rem;
+   background: rgba(255, 255, 255, 0);
    border-radius: 50%;
 }
 
 .expanded .sub-controls button:active {
-   background: rgba(255,255,255,.1);
+   background: rgba(255, 255, 255, .1);
 }
 
 .expanded .sub-controls button span {
-   width: 1.5rem;
-   height: 1.5rem;
+   width: 1.25rem;
+   height: 1.25rem;
 }
 
 .expanded .sub-controls .collapse-btn {
-   width: 2.25rem;
-   height: 2.25rem;
+   width: 2rem;
+   height: 2rem;
    margin-right: -.25rem;
 }
 

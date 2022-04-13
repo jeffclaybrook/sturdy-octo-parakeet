@@ -34,10 +34,7 @@ const loadPlaylist = () => {
             <img src="${songs[i].cover}" alt="Image">
             <div class="wrapper">
                <h3>${songs[i].name}</h3>
-               <div class="flex">
-                  <p>Explicit</p>
-                  <h4>${songs[i].artist}</h4>
-               </div>
+               <h4>${songs[i].artist}</h4>
             </div>
             <button class="more-btn"><span class="more-icon"></span></button>
          </li>
@@ -51,7 +48,7 @@ const setSong = (i) => {
    let song = songs[i];
    audio.src = song.file;
    image.src = song.cover;
-   player.style.background = `linear-gradient(to bottom, rgba(69, 71, 85, .9) 0%, rgba(28, 28, 31, .9) 100%), url(${song.cover}) no-repeat center center/cover`;
+   player.style.background = `linear-gradient(to bottom, rgba(69, 71, 85, .925) 0%, rgba(28, 28, 31, .925) 100%), url(${song.cover}) no-repeat center center/cover`;
    track.innerHTML = song.name;
    artist.innerHTML = song.artist;
    album.innerHTML = currentSong >= 12 ? 'Coloring Book' : 'good kid, m.A.A.d city';
