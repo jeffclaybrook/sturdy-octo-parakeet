@@ -1,5 +1,4 @@
 const audio = document.querySelector('audio');
-const main = document.querySelector('main');
 const playlist = document.querySelector('.playlist');
 const player = document.querySelector('.player');
 const details = document.querySelector('.details');
@@ -14,7 +13,6 @@ const playBtn = document.querySelector('.play-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const shareBtn = document.querySelector('.share-btn');
-const shareMenu = document.querySelector('.share-menu');
 const expandBtn = document.querySelector('.details');
 const collapseBtn = document.querySelector('.collapse-btn');
 
@@ -23,7 +21,7 @@ let currentSong = Math.floor((Math.random() * songs.length) + 1);
 window.addEventListener('load', () => {
    loadPlaylist();
    setSong(currentSong);
-   playingSong();
+   nowPlaying();
 })
 
 const loadPlaylist = () => {
@@ -31,7 +29,7 @@ const loadPlaylist = () => {
    for (let i = 0; i < songs.length; i++) {
       let liTag = `
          <li li-index="${i}">
-            <img src="${songs[i].cover}" alt="Image">
+            <img src="${songs[i].thumb}" alt="Image">
             <div class="wrapper">
                <h3>${songs[i].name}</h3>
                <h4>${songs[i].artist}</h4>
@@ -45,8 +43,8 @@ const loadPlaylist = () => {
 }
 
 const setSong = (i) => {
-   let song = songs[i];
-   audio.src = song.file;
+   const song = songs[i];
+   audio.src = song.source;
    image.src = song.cover;
    player.style.background = `linear-gradient(to bottom, rgba(69, 71, 85, .925) 0%, rgba(28, 28, 31, .925) 100%), url(${song.cover}) no-repeat center center/cover`;
    track.innerHTML = song.name;
@@ -58,6 +56,15 @@ const setSong = (i) => {
    audio.addEventListener('loadeddata', () => {
       seek.max = audio.duration;
    });
+}
+
+const nowPlaying = () => {
+   const ulTag = playlist.querySelector('ul');
+   const allLiTag = ulTag.querySelectorAll('li');
+   for (let i = 0; i < allLiTag.length; i++) {
+      allLiTag[i].getAttribute('li-index') == currentSong ? allLiTag[i].classList.add('now-playing') : allLiTag[i].classList.remove('now-playing');
+      allLiTag[i].setAttribute("onclick", "clickedSong(this)");
+   }
 }
 
 const formatTime = (time) => {
@@ -94,14 +101,14 @@ const pauseSong = () => {
 const prevSong = () => {
    currentSong <= 0 ? currentSong = songs.length - 1 : currentSong--;
    setSong(currentSong);
-   playingSong();
+   nowPlaying();
    playSong();
 }
 
 const nextSong = () => {
    currentSong >= songs.length - 1 ? currentSong = 0 : currentSong++;
    setSong(currentSong);
-   playingSong();
+   nowPlaying();
    playSong();
 }
 
@@ -110,35 +117,27 @@ const toggleSong = () => {
    isPlaying ? pauseSong() : playSong();
 }
 
-const playingSong = () => {
-   const ulTag = playlist.querySelector('ul');
-   const allLiTag = ulTag.querySelectorAll('li');
-   for (let i = 0; i < allLiTag.length; i++) {
-      allLiTag[i].getAttribute('li-index') == currentSong ? allLiTag[i].classList.add('now-playing') : allLiTag[i].classList.remove('now-playing');
-      allLiTag[i].setAttribute('onclick', 'clickedSong(this)');
-   }
-}
-
 const clickedSong = (element) => {
-   let getLiIndex = element.getAttribute('li-index');
+   const getLiIndex = element.getAttribute('li-index');
    currentSong = getLiIndex;
    setSong(currentSong);
-   playingSong();
-   playSong();   
+   nowPlaying();
+   playSong();
 }
 
 const expandPlayer = () => {
    player.classList.add('expanded');
-   main.classList.add('overlay');
+   playlist.classList.add('overlay');
 }
 
 const collapsePlayer = () => {
    player.classList.remove('expanded');
-   main.classList.remove('overlay');
+   playlist.classList.remove('overlay');
 }
 
 const shareApp = () => {
-   let shareData = {
+   const shareMenu = document.querySelector('.share-menu');
+   const shareData = {
       title: 'Audio app',
       text: 'by Jeff Claybrook',
       url: 'https://jeffclaybrook.github.io/sturdy-octo-parakeet/'
