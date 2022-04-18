@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-title" content="Audio App">
+   <meta name="apple-mobile-web-app-status-bar-style" content="#181818">
+   <meta name="theme-color" content="#181818">
+   <meta name="description" content="Description">
+   <title>MP3 App</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+   <link rel="shortcut icon" href="images/favicon.ico">
+   <link rel="icon" href="images/logo-192.png" sizes="192x192">
+   <link rel="icon" href="images/logo-512.png" sizes="512x512">
+   <link rel="apple-touch-icon" href="images/logo-192.png" sizes="192x192">
+   <link rel="apple-touch-icon" href="images/logo-512.png" sizes="512x512">
+   <link ref="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..700&display=swap">
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <main>
+      <div class="playlist">
+         <ul></ul>
+      </div>
+      <div class="player">
+         <div class="header">
+            <h5>Playing from Album</h5>
+            <h4 class="song-album"></h4>
+         </div>
+         <div class="figure">
+            <img src="images/image-0.webp" class="cover" alt="Image">
+         </div>
+         <div class="details">
+            <h1 class="song-name"></h1>
+            <h2 class="song-artist"></h2>
+         </div>
+         <div class="seek">
+            <input type="range" class="seek-bar">
+            <div class="timecodes">
+               <p class="song-timer">00:00</p>
+               <p class="song-duration">00:00</p>
+            </div>
+         </div>
+         <div class="controls">
+            <button class="prev-btn"><span class="prev-icon"></span></button>
+            <button class="play-btn"><span class="play-icon"></span></button>
+            <button class="next-btn"><span class="next-icon"></span></button>
+         </div>
+         <div class="sub-controls">
+            <button class="share-btn"><span class="share-icon"></span></button>
+            <p class="share-menu"></p>
+            <button class="collapse-btn"><span class="collapse-icon"></span></button>
+         </div>
+      </div>
+   </main>
+   <script src="script.js"></script>
+</body>
+</html>
