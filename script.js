@@ -1,21 +1,23 @@
 const audio = new Audio();
-const playlist = document.querySelector('.playlist');
-const playlistUlTag = document.querySelector('.playlist ul');
+const playlist = document.querySelector('.playlist ul');
+const heartBtn = document.querySelector('.heart-btn');
 const player = document.querySelector('.player');
+const album = document.querySelector('.heading h4');
+const cover = document.querySelector('.cover');
 const details = document.querySelector('.details');
 const track = document.querySelector('.song-name');
 const artist = document.querySelector('.song-artist');
-const album = document.querySelector('.song-album');
-const image = document.querySelector('.cover');
 const timer = document.querySelector('.song-timer');
 const duration = document.querySelector('.song-duration');
 const seek = document.querySelector('.seek-bar');
-const playBtn = document.querySelector('.play-btn');
 const prevBtn = document.querySelector('.prev-btn');
+const playBtn = document.querySelector('.play-btn');
 const nextBtn = document.querySelector('.next-btn');
-const shareBtn = document.querySelector('.share-btn');
 const collapseBtn = document.querySelector('.collapse-btn');
+const shareBtn = document.querySelector('.share-btn');
+const person = document.querySelector('.person');
 const bg = 'linear-gradient(to bottom, rgba(69, 71, 85, .925) 0%, rgba(28, 28, 31, .95) 100%)';
+
 const songs = [
    {
       name: "Sherane a.k.a Master Splinter's Daughter",
@@ -226,19 +228,46 @@ const songs = [
       cover: "images/image-26.webp",
       thumb: "images/thumb-26.webp"
    }
-]
+];
+
+const people = [
+   'Bill Clinton',
+   'Princess Diana',
+   'Elon Musk',
+   'Keanu Reeves',
+   'Joan of Arc',
+   'Albert Enstein',
+   'John Lennon',
+   'Michael Jackson',
+   'Abraham Lincoln',
+   'The Virgin Mary',
+   'Prison Mike',
+   'The Scranton Strangler',
+   'Adam and Eve',
+   'John the Baptist',
+   'Yoko Ono',
+   'Mike Lindell',
+   'Rudy Giuliani',
+   'Carlton Banks',
+   'Reince Priebus',
+   'Michael Clump',
+   'Detective Micahel Scarn',
+   'Bill Lumbergh'
+];
 
 let currentSong = Math.floor((Math.random() * songs.length) + 1);
+let currentPerson = Math.floor((Math.random() * people.length) + 1);
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
    loadPlaylist();
-   loadSong(currentSong);
+   setSong(currentSong);
+   getPerson(currentPerson);
 })
 
-const loadPlaylist = () => {
+function loadPlaylist() {
    for (let i = 0; i < songs.length; i++) {
       let liTag = `
-         <li li-index="${i}">
+         <li li-index="${i + 1}">
             <img src="${songs[i].thumb}" alt="Image">
             <div class="wrapper">
                <h3>${songs[i].name}</h3>
@@ -247,13 +276,13 @@ const loadPlaylist = () => {
             <button class="more-btn"><span class="more-icon"></span></button>
          </li>
       `;
-      playlistUlTag.insertAdjacentHTML('beforeend', liTag);
+      playlist.insertAdjacentHTML('beforeend', liTag);
    }
 }
 
-const loadSong = (i) => {
-   const song = songs[i];
-   const allLiTag = playlistUlTag.querySelectorAll('li');
+function setSong(i) {
+   let song = songs[i];
+   const allLiTag = playlist.querySelectorAll('li');
    track.innerHTML = song.name;
    artist.innerHTML = song.artist;
    seek.value = 0;
@@ -261,7 +290,7 @@ const loadSong = (i) => {
    duration.innerHTML = song.duration;
    album.innerHTML = currentSong >= 12 ? 'Coloring Book' : 'good kid, m.A.A.d city';
    player.style.background = `${bg}, url(${song.cover}) no-repeat center center/cover`;
-   image.src = song.cover;
+   cover.src = song.cover;
    audio.src = song.path;
    audio.addEventListener('loadeddata', () => {
       seek.max = audio.duration;
@@ -272,7 +301,7 @@ const loadSong = (i) => {
    };
 }
 
-const formatTime = (time) => {
+function formatTime(time) {
    let min = Math.floor(time / 60);
    let sec = Math.floor(time % 60);
    let minutes = min < 10 ? `0${min}` : `${min}`;
@@ -285,68 +314,75 @@ setInterval(() => {
    timer.innerHTML = formatTime(audio.currentTime);
 }, 1000);
 
-const playSong = () => {
+function getPerson(i) {
+   let currentPerson = people[i];
+   person.innerHTML = `${currentPerson}`;
+}
+
+function playSong() {
    player.classList.add('playing');
    playBtn.querySelector('span').classList.add('pause-icon');
    playBtn.querySelector('span').classList.remove('play-icon');
    audio.play();
 }
 
-const pauseSong = () => {
+function pauseSong() {
    player.classList.remove('playing');
    playBtn.querySelector('span').classList.add('play-icon');
    playBtn.querySelector('span').classList.remove('pause-icon');
    audio.pause();
 }
 
-const toggleSong = () => {
+function toggleSong() {
    const isPlaying = player.classList.contains('playing');
    isPlaying ? pauseSong() : playSong();
 }
 
-const prevSong = () => {
-   currentSong <= 0 ? currentSong = songs.length - 1 : currentSong--;
-   loadSong(currentSong);
-   playSong();
-}
-
-const nextSong = () => {
-   currentSong >= songs.length - 1 ? currentSong = 0 : currentSong++;
-   loadSong(currentSong);
-   playSong();
-}
-
-const seekSong = () => {
+function seekSong() {
    audio.currentTime = seek.value;
 }
 
-const expandPlayer = () => {
+function prevSong() {
+   currentSong <= 0 ? currentSong = songs.length - 1 : currentSong--;
+   setSong(currentSong);
+   playSong();
+}
+
+function nextSong() {
+   currentSong >= songs.length - 1 ? currentSong = 0 : currentSong++;
+   setSong(currentSong);
+   playSong();
+}
+
+function expandPlayer() {
    player.classList.add('expanded');
    playlist.classList.add('overlay');
 }
 
-const collapsePlayer = () => {
+function collapsePlayer() {
    player.classList.remove('expanded');
    playlist.classList.remove('overlay');
 }
 
-const shareApp = () => {
+function favoriteSong() {
+   heartBtn.querySelector('span').classList.toggle('heart-icon-filled');
+}
+
+function shareApp() {
    const shareMenu = document.querySelector('.share-menu');
    const shareData = {
-      title: 'Audio app',
+      title: 'MP3 App',
       text: 'by Jeff Claybrook',
       url: 'https://jeffclaybrook.github.io/sturdy-octo-parakeet/'
    };
    navigator.share(shareData)
    .then(() =>
-      shareMenu.textContent = '',
-      shareMenu.style.display = 'none'
+      shareMenu.textContent = ''
    )
    .catch((e) =>
-      shareMenu.textContent = '' + e,
-      shareMenu.style.display = 'none'
+   shareMenu.textContent = '' + e
    )
-}
+};
 
 details.addEventListener('click', expandPlayer);
 collapseBtn.addEventListener('click', collapsePlayer);
@@ -354,5 +390,6 @@ playBtn.addEventListener('click', toggleSong);
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 seek.addEventListener('change', seekSong);
-audio.addEventListener('ended', nextSong);
+heartBtn.addEventListener('click', favoriteSong);
 shareBtn.addEventListener('click', shareApp);
+audio.addEventListener('ended', nextSong);
