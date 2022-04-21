@@ -267,7 +267,7 @@ window.addEventListener('load', () => {
 function loadPlaylist() {
    for (let i = 0; i < songs.length; i++) {
       let liTag = `
-         <li li-index="${i + 1}">
+         <li li-index="${i}">
             <img src="${songs[i].thumb}" alt="Image">
             <div class="wrapper">
                <h3>${songs[i].name}</h3>
